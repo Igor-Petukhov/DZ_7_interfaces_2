@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -239,7 +240,7 @@ namespace ConsoleApp1
         }
     }
 
-    class SostavnFigura : Geometric_figure, IFigure
+    class SostavnFigura : IFigure, IEnumerable
     {
         private Geometric_figure[] gfArr;
 
@@ -251,76 +252,39 @@ namespace ConsoleApp1
                 gfArr[i] = arrIn[i];
             }
         }
-        //public void Add_figure(int x1, int y1, int x2, int y2, int x3, int y3) //triangle
-        //{
-        //    n++;
-        //    Geometric_figure[] tmp = new Geometric_figure[n];
-        //    Array.Copy(gfArr, tmp, n - 1);
-        //    tmp[n-1] = new Triangle(x1, y1, x2, y2, x3, y3);
-        //    gfArr = tmp;
-        //    //lst.Add(triangle);
-        //}
-        //public void Add_figure(float AB) //square figure
-        //{
-        //    n++;
-        //    Geometric_figure[] tmp = new Geometric_figure[n];
-        //    Array.Copy(gfArr, tmp, n - 1);
-        //    tmp[n-1] = new SquareFigure(AB);
-        //    gfArr = tmp;
-        //}
-        //public void Add_figure(float a, float b, int figure_id)//figure_id 1 - Rhombus, 2 - Rectangle
-        //{
-        //    switch (figure_id)
-        //    {
-        //        case 1: //rhombus
-        //            {
-        //                n++;
-        //                Geometric_figure[] tmp = new Geometric_figure[n];
-        //                Array.Copy(gfArr, tmp, n - 1);
-        //                tmp[n-1] = new Rhombus(a, b);
-        //                gfArr = tmp;
-        //                break;
-        //            }
-        //        case 2: //rectangle
-        //            {
-        //                n++;
-        //                Geometric_figure[] tmp = new Geometric_figure[n];
-        //                Array.Copy(gfArr, tmp, n - 1);
-        //                tmp[n-1] = new Rectangle(a, b);
-        //                gfArr = tmp;
-        //                break;
-        //            }
-        //        default:
-        //            break;
-        //    }
 
-        //}
-        public override float Perimeter()
+        public IEnumerator GetEnumerator()
+        {
+            return gfArr.GetEnumerator();
+        }
+
+        public float Perimeter()
         {
             float tmp = 0;
-            for (int i = 0; i < gfArr.Length; i++)
+            foreach (Geometric_figure item in this)
             {
-                tmp += gfArr[i].Perimeter();
+                tmp += item.Perimeter();
+            }
+            return tmp;
+        }
+        public float Square()
+        {
+            float tmp = 0;
+            foreach (Geometric_figure item in this)
+            {
+                tmp += item.Square();
             }
             return tmp;
         }
 
         public void Print()
         {
-            foreach (Geometric_figure item in gfArr)
+            foreach (IFigure item in this)
             {
-                (item as IFigure).Print();
+                item.Print();
             }
         }
 
-        public override float Square()
-        {
-            float tmp = 0;
-            for (int i = 0; i < gfArr.Length; i++)
-            {
-                tmp += gfArr[i].Square();
-            }
-            return tmp;
-        }
+        
     }
 }

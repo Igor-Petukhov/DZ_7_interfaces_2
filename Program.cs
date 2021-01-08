@@ -30,9 +30,10 @@ namespace ConsoleApp1
             rhombus,
             rectangle,
             };
+            
             SostavnFigura sf = new SostavnFigura(gfArr);
             sf.Print();
-
+            
 
             Console.ReadKey();
         }
